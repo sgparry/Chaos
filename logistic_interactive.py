@@ -530,8 +530,8 @@ class Controls(QWidget):
             self.rateval = linear_interp(self.rate_box.value(),
                                             0, 3.99, 0, 3.99, lim=1, dec=2)
             self.rate.blockSignals(True)
-            self.rate.setValue( linear_interp(self.rateval,
-                                            0, 3.99, 0, 99, lim=1, dec=2) )
+            self.rate.setValue( int(linear_interp(self.rateval,
+                                            0, 3.99, 0, 99, lim=1, dec=2)) )
             self.rate.blockSignals(False)
 
         elif kind == 'ipop_slider':
@@ -548,8 +548,8 @@ class Controls(QWidget):
             self.ipopval = self.ipop_box.value()
 
             self.ipop.blockSignals(True)
-            self.ipop.setValue( linear_interp(self.ipopval,
-                                            0, 1, 0, 100, lim=1) )
+            self.ipop.setValue( int(linear_interp(self.ipopval,
+                                            0, 1, 0, 100, lim=1)) )
             self.ipop.blockSignals(False)
 
 
@@ -575,7 +575,7 @@ class Widget(QWidget):
         self.controls.setValues()
         self.horizontalLayout.addWidget(self.controls)
 
-        self.win = pg.GraphicsWindow()
+        self.win = pg.GraphicsLayoutWidget()
 
         self.setWindowTitle("Logistic Map 🤯")
         self.horizontalLayout.addWidget(self.win)
@@ -654,7 +654,7 @@ class Widget(QWidget):
             # start animate
             self.animspeed = self.controls.animrate.value()
             self.animspeed = max(1, self.animspeed)
-            self.animspeed = 1000/self.animspeed # sec/frame -> frames/msec
+            self.animspeed = 1000//self.animspeed # sec/frame -> frames/msec
 
             self.f = 0
             self.fmax = 100
@@ -667,7 +667,7 @@ class Widget(QWidget):
             # continue animate
             self.animspeed = self.controls.animrate.value()
             self.animspeed = max(1, self.animspeed)
-            self.animspeed = 1000/self.animspeed
+            self.animspeed = 1000//self.animspeed
 
             self.timer.start(self.animspeed)
 

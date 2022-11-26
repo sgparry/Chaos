@@ -443,10 +443,7 @@ NEW_TRANSLUCENT_SNIPPETS = dict(
         """,
 )
 
-NEW_TRANSLUCENT_FRAG_SHADER = vispy.visuals.volume.FRAG_SHADER.format(
-                                            **NEW_TRANSLUCENT_SNIPPETS)
-
-vispy.visuals.volume.frag_dict['translucent'] = NEW_TRANSLUCENT_FRAG_SHADER
+vispy.visuals.volume.VolumeVisual._rendering_methods['translucent'] = NEW_TRANSLUCENT_SNIPPETS
 
 # Create the volume visuals, only one is visible
 volume1 = scene.visuals.Volume(vol, parent = view.scene,
